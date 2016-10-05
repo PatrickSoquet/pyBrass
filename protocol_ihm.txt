@@ -1,0 +1,102 @@
+		# INPUT
+		# 	11 actions donc 6 avec parametre
+		# 	3 SV (tt le temps MAIS priorité du programme!!)
+		# 	arret urgence?? a etudier:
+		# 								eviter debordement
+		# 								eviter de cramer les resistances
+		# 								arret général? pas possible!!!
+		# et aussi : faire un vraie "main" qui lance le loop de brassage + le loop de server websocket!!! => 2 threads
+		# CUVEAU_FILL               vol
+		# CUVEAU_HEAT               temp
+		# CUVEBRASS_EMPTY           vol
+		# CUVEBRASS_FILL            vol
+		# REVERDOIR_HEAT            temp
+		# CUVEBU_EMPTY              vol (= volume restant valeur par defaut: 0)
+		# CUVEBU_HEAT               temp (valeur par défaut: 99°C)
+		# REVERDOIR                 bool
+		# MIXER                     bool
+		# ALARM                     bool
+		# PUMP_EMPTY_CUVEBU         /
+		# +other  action
+		# ARRET_COMPLET             / (ferme ttes els vannes, coupe ts les moteurs + resistance etc)
+		# TEST (a verouiller!!!)
+			self.write_message(json.dumps(
+				[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+				 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0,
+				 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1,
+				 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]))
+		# remplir l'état de la brasserie!!
+		# FORMAT:
+		# 1 pour 0 (le tableau va de 1 a 111)
+		# 11 	(cuveau b)
+		# 11 +10	( cuvebrass b +o)
+		# 11 + 10 (cuvebu b+ o)
+		# 6	(reverdoir b)
+		# 22   	(t: b- v / b - v / b - v / b - v / b - v - o / b - v - o / b - v - o / b - v - o / b - v /
+		# 16    (ev: b - cl / b - cl / b - cl - o / b - cl - o / b - cl - o / b - cl - o / )
+		# 8	(m: off/ on x4)
+		# 6	(r: off/ on x3)
+		#
+		# [0,
+		#  1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+		#  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		#     0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+		#  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		#     0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+		#  1, 0, 0, 0, 0, 1,
+		#  0, 1, 0, 1, 1, 0, 1, 0,
+		#  0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0,
+		#  0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0,
+		#  1, 0, 0, 1, 0, 1, 0, 0,
+		#  0, 1, 1, 0, 0, 1]
+		#	self.write_message(json.dumps([0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0,1,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,1]))
+
+		#	self.write_message(json.dumps([0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1]))
+
+
+resp = json.dumps(data[112])
+cmd =
+
+brass -> ihm
+* data[112]
+toujours dans resp
+
+ihm -> brass
+* action: liste à parser ("REVERDOIR_HEAT", temp)
+
+
+compression pour passer d'un tableau de 111 "bits" en 4 int...:
+compress = []
+ll = len(data)/32
+reste  = len(data) % 32
+for ii in range(0,ll):
+    sm = 0
+    for jj in range(0,32):
+        sm += data[ii*32+jj]<<jj
+    compress += [sm]
+sm = 0
+for jj in range(0,reste):
+    sm += data[ll*32+jj]<<jj
+compress += [sm]
+
+------------------------
+ok pour la compression!!! => 4 octets pour les images
++ 15 int pour les datas:
+	ret += self.r_temper + self.r_SV + self.r_vol + [self.r_vol_brass] + [self.timer, self.nbcycle, self.timer - self.begin_time]
+
+	            0..3: 112 bits pour l'affichage des 111 images
+				4	: température	cuveau
+				5	: température	cuve brass
+				6	: température	reverdoir
+				7	: température	cuvebu
+				8	: SV			cuveau
+				9	: SV			cuve brass (non utilisé)
+				10	: SV			reverdoir
+				11	: SV			cuvebu
+				12	: volume		cuveau
+				13	: volume		reverdoir
+				14	: volume		cuvebu
+				14	: volume		cuve brass
+				16	: timer
+				17	: nb cycle
+				18	: chrono

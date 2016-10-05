@@ -1,0 +1,29 @@
+import Adafruit_BBIO.GPIO as g
+pour INPUT (alimenter indirectement le TTL via GND-resistance 1kohm-GPIO-3V3)
+g.setup("P8_10",g.IN)
+g.input("P8_10")
+
+pour OUTPUT (alimente une LED+resistance de 1kohm directement)
+g.setup("P8_10",g.OUT)
+g.output("P8_10",0)
+g.output("P8_10",1)
+
+
+
+import Adafruit_BBIO.UART as u
+
+probe the I2C:
+i2cdetect -y -r 0 ou 1
+
+
+I2C
+RELAY BOARD:	0xAE		0x4C
+			A2   --			 --
+			A1   --			 --
+			A0   --			 oo
+
+ADC:	read    0xD9		0xDD
+		write   0xD8		0xDC
+		 +V+V   |			| |
+		 A0A1   | |		    | |
+		  GG      |

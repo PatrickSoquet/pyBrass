@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Industrial.js</title>
+<meta name="description" content="Industrial.js -- A JavaScript-driven library of CSS3 gauges, tanks, and more.">
+<meta name="viewport" content="width=device-width">
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<style>
+h1.huge {
+font-size: 72pt;
+}
+.content-centered {
+text-align: center;
+}
+</style>
+<link rel="stylesheet" href="css/industrial.css">
+<link rel="stylesheet" href="css/introjs.min.css">
+<link rel="stylesheet" href="css/foundation.css">
+</head>
+
+
+<body>
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+<h5>Temperature 2</h5>
+<div class="industrial thermometer size one"> <span class="ticks" data-amount="50"></span>
+<div class="space"></div>
+<div class="meter safe"></div>
+
+
+
+<div class="industrial preloader">&nbsp;</div>
+<script src="js/jquery-3.1.0.min.js"></script> 
+<script src="js/industrial.js"></script> 
+
+<script src="js/intro.min.js"></script>
+
+<script type="text/javascript">
+ setInterval(function() {
+        $(".industrial.tank, .industrial.thermometer, .industrial.gauge").each(function() {
+            $(this).industrial(Math.floor(Math.random()*100));
+        });
+</script>
+</body>

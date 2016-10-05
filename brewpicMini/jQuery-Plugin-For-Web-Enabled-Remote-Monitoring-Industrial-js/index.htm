@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<link rel="stylesheet" href="css/industrial.css">
+</head>
+<body>
+
+<h5>Temperature 1</h5>
+<div class="industrial thermometer size one"> <span class="ticks" data-amount="10"></span>
+<div class="space"></div>
+<div class="meter safe"></div>
+<div id="t1"> 0 </div>
+</div>
+</div>
+<div class="small-4 large-2 columns">
+<h5>Temperature 2</h5>
+<div class="industrial thermometer size one"> <span class="ticks" data-amount="10"></span>
+<div class="space"></div>
+<div class="meter danger"></div>
+</div>
+</div>
+<p id="t2"> 0 </p>
+<!-- primary=default: bleu, safe : vert, unimportant: gris, danger: rouge, warning: jaune { / -->
+
+<h5>LED 1</h5>
+<div class="industrial led size two">
+<div class="meter green"></div>
+
+</div>
+
+</div>
+</div>
+
+
+
+<script src="js/jquery-3.1.0.min.js"></script> 
+<script src="js/industrial.js"></script> 
+<script src="js/intro.min.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+    setInterval(function() {
+		var rd = Math.random();
+		document.getElementById("t1").innerHTML = Math.floor(rd*100);
+		document.getElementById("t2").innerHTML = Math.floor(rd*100);
+        $(".industrial.tank, .industrial.thermometer, .industrial.gauge").each(function() {
+            $(this).industrial(rd*100);
+        });
+        $(".industrial.led").each(function() {
+            $(this).industrial(rd > .5);
+        });
+
+    }, 4000);
+
+
+});
+</script>
+</body>
+</html>

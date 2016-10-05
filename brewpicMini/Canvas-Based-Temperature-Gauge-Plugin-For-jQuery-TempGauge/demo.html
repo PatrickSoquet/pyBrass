@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tempgauge.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+				$(".tempGauge0").tempGauge({width:70, borderWidth:3, showLabel:true, maxTemp:100, minTemp:0});
+				$(".tempGauge1").tempGauge({width:50, borderWidth:3, showLabel:false});
+				$(".tempGauge2").tempGauge({width:60, borderWidth:4, borderColor:"#adadad", fillColor:"#dcdcdc", showLabel:true});
+				$(".tempGauge3").tempGauge({width:70, borderWidth:2, fillColor:"green"});
+				$(".tempGauge4").tempGauge({width:70, borderWidth:2, fillColor:"#4B8AD6"});
+			
+		});
+		
+		$(function(){
+			$(".babar").tempGauge({width:70, borderWidth:3, showLabel:true, maxTemp:100, minTemp:0, fillColor:"red"});
+		});
+		
+	</script>
+
+</head>
+<body>
+	<div class="tempGauge0">-10&deg;C</div>
+	<div class="tempGauge0">0&deg;C</div>
+	<div class="tempGauge0">100&deg;C</div>
+	<div class="babar">100&deg;C</div>
+	<div class="babar">100&deg;C</div>
+</body>
+</html>

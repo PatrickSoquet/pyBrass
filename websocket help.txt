@@ -1,0 +1,6 @@
+to kill a socket!!
+if port = 8888
+
+netstat -ano |findstr "8888" 
+-> recup de l'ID
+taskkill /f /pid ID

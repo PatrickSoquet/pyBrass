@@ -1,0 +1,12 @@
+only for comment1
+only for comment2
+{"CLEANING_PROCESS": false}
+{"CUVEAU_FILL": 70, "TIME": 2}
+{"REVERDOIR_HEAT": 90, "CUVEAU_HEAT": 70, "TIME": 4}
+{"CUVEBRASS_FILL": 50, "TIME": 11}
+{"REVERDOIR": true, "MIXER": true, "TIME": 16}
+{"REVERDOIR_HEAT": 0, "REVERDOIR": false, "TIME": 20}
+{"CUVEBRASS_FILL": 20, "CUVEAU_HEAT": 0, "MIXER": false, "TIME": 24}
+{"CUVEBRASS_EMPTY": 60, "CUVEBU_HEAT": 99, "TIME": 26}
+{"ALARM": "BRASSAGE TERMINE!!!!!", "CUVEBU_EMPTY": 60, "CUVEBU_HEAT": 0, "TIME": 42}
+{"ALARM": "brassage fini", "TIME": 47}

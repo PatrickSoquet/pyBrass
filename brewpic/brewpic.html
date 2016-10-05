@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>Brassage du Dagda</title>
+    <link rel="stylesheet" type="text/css" href="css/brew.css">
+    <!-- BOOTSTRAP -->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!--------- Panel with the content --------->
+<div class="panel-container">
+    <!----- PANEL HEADER ---->
+    <div class=" panel-header border row">
+        <div class="col-md-12">
+            <!----- Brew and info ---->
+            <div class="col-md-4">
+                <label id="titredate">Brassage du --date-</label>
+                <div class="inline form-group">
+                    <label for="fileI">Config File:</label>
+                   <!-- <input type="file" class=" myinputfile form-control" id="fileI" accept=".ibf">-->
+                    <select class=" myinputfile form-control" id="fileI"> </select>
+                </div>
+            </div>
+            <div class="col-md-8 "> <!-- col-lg-offset-1 -->
+                   <div class="conf-file-content">
+                        <p class="conf-line-1" id="file-content1"></p>
+                        <p class="conf-line-1" id="file-content2"></p>
+                    </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="row center-button">
+                    <p> </p>
+
+                    <div class="col-md-10">
+                        <div class="col-md-3 col-xs-3">
+                            <button class="mybtn1 mybtn start" onclick="beginbrass()">Begin brass!</button>
+                            <!--//TODO -> en gras ou clignotant quans il faut cliquer dessus "en gris" quand ca ne sert plsu a rien-->
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <!--<button class="mybtn pause" onclick="WebSocketGetState({'PAUSE':true})">Pause</button>-->
+                            <button id="pause-button" class="mybtn1 mybtn pause" href="#">Pause</button>
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <button class="mybtn1 mybtn restart" onclick="RAZ()">RAZ</button>
+                            <!--//TODO -> replace this with a "are you sure you want to reset?" pop up
+                            -->
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <!--//TODO -> replace this with a "are you sure you want to quit?" pop up + kill the python program and quit
+                            //TODO et faire le code python correspondant (function quit() de brass_process)
+                            -->
+                            <button class="mybtn1 mybtn stop" onclick="stop()">Quit</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <img id="emergencystop" class="" src="picture/stop.png">
+                    </div>
+                </div>
+
+                <p> </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!----- SIDERS INFORMATION -->
+    <div class="col-md2 row siders-container">
+        <!-- Left panel -->
+        <div class="col-md-2 col-xs-2 left-sider-container">
+            <div class="row left-sider-section">
+                <h2>Timing</h2>
+                <div class="col-md-6">
+                    <label class="labeloutput">Heure</label>
+                    <label class="labeloutput">Chrono</label>
+                    <label class="labeloutput">Nb Cycle</label>
+                </div>
+                <div class="col-md-6">
+                    <p id ="hour" class="myoutputhour" /></p>
+                    <p id ="timer" class="myoutputhour" /></p>
+                    <p id ="cycle" class="myoutputhour" /></p>
+                </div>
+
+            </div>
+            <div class="row left-sider-section">
+                <h2>Temperatures</h2>
+                <div class="col-md-8">
+                    <label class="labeloutput">Cuve eau</label>
+                    <label class="labeloutput">Cuve brassage</label>
+                    <label class="labeloutput">Cuve reverdoir</label>
+                    <label class="labeloutput">Cuve eau</label>
+                </div>
+                <div class="col-md-4">
+                    <p id ="temp_cuveau" class="myoutput" /></p>
+                    <p id ="temp_cuvebrass" class="myoutput" /></p>
+                    <p id ="temp_rever" class="myoutput" /></p>
+                    <p id ="temp_cuvebu" class="myoutput" /></p>
+                </div>
+
+            </div>
+            <div class="row left-sider-section">
+                <h2>Volumes</h2>
+                <div class="col-md-8">
+                    <label class="labeloutput">Cuve eau</label>
+                    <label class="labeloutput">Cuve brassage</label>
+                    <label class="labeloutput">Cuve reverdoir</label>
+                    <label class="labeloutput">Cuve eau</label>
+                </div>
+                <div class="col-md-4">
+                    <p id ="vol_cuveau" class="myoutput" /></p>
+                    <p id ="vol_cuvebrass" class="myoutput" /></p>
+                    <p id ="vol_rever" class="myoutput" /></p>
+                    <p id ="vol_cuvebu" class="myoutput" /></p>
+                </div>
+            </div>
+        </div>
+
+
+        <!----- PANEL COMMAND SECTIONS ---->
+        <div class="col-md-7 row main-button">
+            <div id="img_place" >
+                <div class="g1"><p class="gt" id="gt1">0&#x2103</p><meter id="tempgauge_cuveau" class="met" max="100" min="0" low="0" optimum="0" high="50" value="0"></meter></div>
+                <div class="g2"><p class="gt" id="gt2">0&#x2103</p><meter id="tempgauge_cuvebrass" class="met" max="100" min="0" low="0" optimum="0" high="50" value="0" ></meter></div>
+                <div class="g3"><p class="gt" id="gt3">0&#x2103</p><meter id="tempgauge_rever" class="met" max="100" min="0" low="0" optimum="0" high="50" value="0" ></meter></div>
+                <div class="g4"><p class="gt" id="gt4">0&#x2103</p><meter id="tempgauge_cuvebu" class="met" max="100" min="0" low="0" optimum="0" high="50" value="0" ></meter></div>
+            </div>
+
+
+            <div class="alert-snooze">
+                <img id="alarmpic" src="picture/alarm.png" style="display: none">
+                <p id="alarmtxt" class=""alarmtxt style="display: none"></p>
+            </div>
+
+        </div>
+
+        <!-- Right panel-->
+        <div class="col-md-3 right-sider-container">
+            <div class="col-md-12 row right-sider-section">
+                <h2>Ajustement Temperature</h2>
+                <div class="col-md-6 col-xs-6 ">
+                    <button class="mybtn1 mybtn" onclick="WebSocketGetState({'CUVEAU_HEAT': Number(document.getElementById('adjtemp_cuveau').value) })">Cuve eau</button>
+                    <button class="mybtn1 mybtn" onclick="WebSocketGetState({'REVERDOIR_HEAT': Number(document.getElementById('adjtemp_rever').value) })">Reverdoir</button>
+                    <button class="mybtn1 mybtn" onclick="WebSocketGetState({'CUVEBU_HEAT': Number(document.getElementById('adjtemp_cuvebu').value) })">Cuve ebu</button>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <ul>
+                        <li class="noborder"> <span  class="llinputC"><input type="number" id ="adjtemp_cuveau" min="0" max="100" value =0 /></span></li>
+						<li class="noborder"> <span class="llinputC"><input type="number" id ="adjtemp_rever" class="myinput" min="0" max="100" value =0 /></span></li>
+						<li class="noborder"> <span class="llinputC"><input type="number" id ="adjtemp_cuvebu" class="myinput" min="0" max="100" value =0 /></span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 row right-sider-section">
+                <h2>Ajustement Volumes</h2>
+                <div class="col-md-6 col-xs-6">
+                    <button class="mybtn1 mybtn" onclick="WebSocketGetState({'CUVEAU_FILL': Number(document.getElementById('adjvol_cuveau').value) })">Cuve eau</button>
+                    <button class="mybtn1 mybtn" onclick="WebSocketGetState({'CUVEBRASS_FILL': Number(document.getElementById('adjvol_cuvebrass').value) })">Cuve brass</button>
+                    <button class="mybtn1 mybtn" onclick="WebSocketGetState({'CUVEBRASS_EMPTY': Number(document.getElementById('adjvol_cuvebu').value) })">Cuve ebu</button>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <ul>
+					    <li  class="noborder"> <input type="number" id ="adjvol_cuveau" class="myinput" min="0" max="75" value =0 /><label class="llinputL">l</label></li>
+						<li  class="noborder"> <input type="number" id ="adjvol_cuvebrass" class="myinput" min="0" max="75" value =0 /><span class="llinputL">l</span></li>
+						<li  class="noborder"> <input type="number" id ="adjvol_cuvebu" class="myinput" min="0" max="75" value =0 /><span class="llinputL">l</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 row right-sider-section">
+                <h2>Ajustement Moteur/Pompes</h2>
+					<button id="mixer-button" class=" mybtn1 mybtn actuator-button" href="#">Mixer ON</button>
+					<button id="pumprev-button" class=" mybtn1 mybtn actuator-button" href="#">Pump reverdoir ON</button>
+					<button id="pumpeau-button" class=" mybtn1 mybtn actuator-button" href="#">Pump cuveau ON</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- FOOTER -->
+    <div class="row" id="gg">
+        <div class="col-md-2">
+            <!--<button id="console-button" onclick="showConsole()" class=" btn console-button" href="#">-->
+			<!-- normalement : c'est un bouton bootstrap!!!  <button id="console-button" class=" btn console-button" href="#">-->
+			<button id="console-button" class=" mybtn1 mybtn" href="#">
+                Afficher console
+            </button>
+        </div>
+
+        <div id="console-container" class="col-md-10 console-container">
+            <p class=" console-content">TODO...</p>
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" src="js/brewpic.js"></script>
+
+</body>
+</html>
